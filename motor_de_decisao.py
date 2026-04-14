@@ -25,11 +25,29 @@ paciente_teste = {
         ]
     }
 for regra in regras:
-    print(regra)
+    if paciente_teste["leituras"][0]["consciente"] == regra["condicoes"]["consciente"] or  paciente_teste["leituras"][0]["pulso_presente"] == regra["condicoes"]["pulso_presente"] or paciente_teste["leituras"][0]["respirando"] == regra["condicoes"]["respirando"]:
+       # nivel = 1
+       paciente_teste["nivel"] = regra["nivel"]
+    elif paciente_teste["leituras"][0]["glasgow"] <= regra["condicoes"]["glasgow"] and paciente_teste["leituras"][0]["spo2"] < regra["condicoes"]["spo2"] and (paciente_teste["leituras"][0]["frequencia_cardiaca"] > regra["condicoes"]["frequencia_cardiaca"]["max"] or  paciente_teste["leituras"][0]["frequencia_cardiaca"] < regra["condicoes"]["frequencia_cardiaca"]["min"]) and paciente_teste["leituras"][0]["escala_dor"] > regra["condicoes"]["escala_dor"]["min"]: 
+        # nivel = 2
+        paciente_teste["nivel"] = regra["nivel"]
+
+    elif paciente_teste["leituras"][0]["temperatura"] > regra["condicoes"]["temperatura"] and paciente_teste["leituras"][0]["vomitos_por_hora"] >= regra["condicoes"]["vomitos_por_hora"] and regra["condicoes"]["escala_dor"]["min"] < paciente_teste["leituras"][0]["escala_dor"] < regra["condicoes"]["escala_dor"]["max"]:
+    and (regra["condicoes"]["frequencia_cardiaca"]["min"] < paciente_teste["leituras"][0]["frequencia_cardiaca"] < regra["condicoes"]["escala_dor"]["max"] or regra["condicoes"]["frequencia_cardiaca"]["min"] < paciente_teste["leituras"][0]["frequencia_cardiaca"] < regra["condicoes"]["frequencia_cardiaca"]["max"]:) 
+        # nivel = 3
+        paciente_teste["nivel"] = regra["nivel"]
+    else:
+        # nivel = 5
+        break
+    print(regra["condicoes"]["consciente"],regra["condicoes"]["glasgow"],regra["condicoes"]["spo2"],
+          regra["condicoes"]["frequencia_cardiaca"],regra["condicoes"]["temperatura"],regra["condicoes"]["escala_dor"],
+          regra["condicoes"]["vomitos_por_hora"],regra["condicoes"]["pulso_presente"],regra["condicoes"]["respirando"])
 for regra in regras_priorizacao["prioridade"]:
     print(regra)
     print(paciente_teste[regra])
     if paciente_teste[regra] == True or paciente_teste[regra] > 60:
+        paciente_teste["Prioridade"] = True
         break
-    else:
-        print("Paciente não é prioridade")
+    print("Paciente não é prioridade")
+print(paciente_teste["Prioridade"])
+print(paciente_teste["nivel"])

@@ -71,14 +71,14 @@
       "tempo_maximo": 120,
        "condicoes":    {
         "consciente": true,
-            "glasgow": 15,
-            "spo2": 95,
-            "frequencia_cardiaca": {"max":120, "min":50},
-            "temperatura": 37.2, 
-            "escala_dor": {"max":0, "min":0},        
-            "vomitos_por_hora": 0,
-            "pulso_presente": true,
-            "respirando": true 
+        "glasgow": 15,
+        "spo2": 95,
+        "frequencia_cardiaca": {"max":120, "min":50},
+        "temperatura": 37.2, 
+        "escala_dor": {"max":0, "min":0},        
+        "vomitos_por_hora": 0,
+        "pulso_presente": true,
+        "respirando": true 
         }
     }
 ]

@@ -1,4 +1,4 @@
-{"prioridade": ["gestante", "deficiencia", "idade"], "regras": [
+{"prioridade": [ "idade","gestante", "deficiencia"], "regras": [
     {
         "condicao": "gestante == true",
         "prioridade": 1
