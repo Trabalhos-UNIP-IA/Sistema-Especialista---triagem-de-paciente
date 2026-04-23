@@ -4,8 +4,16 @@
 #     regras = json.load(f)
 # with open(r"regras/regras_de_prioridade.json", "r",encoding="utf-8") as f:
 #     regras_priorizacao = json.load(f)
-from regras.regras_de_prioridade import regras
-
+from regras.regras_de_prioridade import regras_prioridade
+operadores ={ 
+            "==": lambda a, b: a == b,
+            ">=": lambda a, b: a >= b,
+            "<= ": lambda a, b: a <= b,
+            ">": lambda a, b: a > b,
+            "<": lambda a, b: a < b,
+            "entre": lambda a, b: b[0] <= a <= b[1],
+            "fora": lambda a, b: a < b[0] or a > b[1]
+        }
 paciente_teste = {
         "idade": 67,
         "gestante": False,
@@ -31,35 +39,29 @@ def tete_logico(paciente, condicao):
     if paciente.get(atributo) is None:
         return False
     else:
-        operadores ={ 
-            "==": lambda a, b: a == b,
-            ">=": lambda a, b: a >= b,
-            "<= ": lambda a, b: a <= b,
-            ">": lambda a, b: a > b,
-            "<": lambda a, b: a < b,
-            "entre": lambda a, b: b[0] <= a <= b[1]
-        }
 
         return operadores[operador](paciente[atributo], valor)
 
 
-def teste_prioridade(regras, paciente):
+def validador_de_prioridade(regras, paciente):
     for regra in regras:
         condicao = regra["condicao"]
-        atributo, operador, valor = condicao
         if tete_logico(paciente, condicao):
                 paciente["prioridade"] = True
                 paciente["tipo_prioridade"] = regra["prioridade"]
 
-paciente1 = {"idade": 65}
-paciente2 = {"idade": 30, "gestante": True}
-paciente3 = {"idade": 40,  "deficiencia": True}
-paciente4= {"idade": 25}
-teste_prioridade(regras, paciente1)
-teste_prioridade(regras, paciente2)
-teste_prioridade(regras, paciente3)
-teste_prioridade(regras, paciente4)
-print(paciente1)  # Deve ter prioridade "deficiencia"
-print(paciente2)  # Deve ter prioridade "gestante"
-print(paciente3)  # Deve ter prioridade "deficiencia"
-print(paciente4) 
+def triagem(regras,paciente):
+    for regra in regras:
+        condicoes = regra["condicoes"]
+        if all(tete_logico(paciente, condicao) for condicao in condicoes):
+            paciente["nivel_prioridade"] = regra["nivel"]
+            paciente["cor"] = regra["cor"]
+            paciente["tempo_maximo"] = regra["tempo_maximo"]
+            return paciente
+    else:
+        paciente["nivel_prioridade"] = "Não urgente"
+        paciente["cor"] = "azul"
+        paciente["tempo_maximo"] = 120
+        return paciente
+
+     

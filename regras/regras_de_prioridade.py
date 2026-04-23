@@ -1,5 +1,5 @@
 prioridade=[ "idade","gestante", "deficiencia"]
-regras = [
+regras_prioridade = [
     {
         "condicao": ("gestante", "==", True),
         "prioridade": "idade"
