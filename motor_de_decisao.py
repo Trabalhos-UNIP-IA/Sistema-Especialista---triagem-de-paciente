@@ -1,8 +1,10 @@
-import json
-with open(r"regras/regras_de_classificação.json", "r",encoding="utf-8") as f:
-    regras = json.load(f)
-with open(r"regras/regras_de_prioridade.json", "r",encoding="utf-8") as f:
-    regras_priorizacao = json.load(f)
+
+# import json
+# with open(r"regras/regras_de_classificação.json", "r",encoding="utf-8") as f:
+#     regras = json.load(f)
+# with open(r"regras/regras_de_prioridade.json", "r",encoding="utf-8") as f:
+#     regras_priorizacao = json.load(f)
+from regras.regras_de_prioridade import regras
 
 paciente_teste = {
         "idade": 67,
@@ -24,40 +26,40 @@ paciente_teste = {
             }
         ]
     }
-for regra in regras:
-    if paciente_teste["leituras"][0]["consciente"] == regra["condicoes"]["consciente"] or  paciente_teste["leituras"][0]["pulso_presente"] == regra["condicoes"]["pulso_presente"] or paciente_teste["leituras"][0]["respirando"] == regra["condicoes"]["respirando"]:
-       # nivel = 1
-       paciente_teste["nivel"] = regra["nivel"]
-       print("Paciente é nível 1")
-       break
-    elif paciente_teste["leituras"][0]["glasgow"] <= regra["condicoes"]["glasgow"] and paciente_teste["leituras"][0]["spo2"] < regra["condicoes"]["spo2"] and (paciente_teste["leituras"][0]["frequencia_cardiaca"] > regra["condicoes"]["frequencia_cardiaca"]["max"] or  paciente_teste["leituras"][0]["frequencia_cardiaca"] < regra["condicoes"]["frequencia_cardiaca"]["min"]) and paciente_teste["leituras"][0]["escala_dor"] > regra["condicoes"]["escala_dor"]["min"]: 
-        # nivel = 2
-        paciente_teste["nivel"] = regra["nivel"]
-        print("Paciente é nível 2")
-        break
-
-    elif paciente_teste["leituras"][0]["temperatura"] > regra["condicoes"]["temperatura"] and paciente_teste["leituras"][0]["vomitos_por_hora"] >= regra["condicoes"]["vomitos_por_hora"] and regra["condicoes"]["escala_dor"]["min"] < paciente_teste["leituras"][0]["escala_dor"] < regra["condicoes"]["escala_dor"]["max"] and (regra["condicoes"]["frequencia_cardiaca"][0]["min"] < paciente_teste["leituras"][0]["frequencia_cardiaca"] < regra["condicoes"]["escala_dor"][0]["max"] or regra["condicoes"]["frequencia_cardiaca"][1]["min"] < paciente_teste["leituras"][0]["frequencia_cardiaca"] < regra["condicoes"]["frequencia_cardiaca"][1]["max"]): 
-        # nivel = 3
-        paciente_teste["nivel"] = regra["nivel"]
-        print("Paciente é nível 3")
-
-        break
+def tete_logico(paciente, condicao):
+    atributo, operador, valor = condicao
+    if paciente.get(atributo) is None:
+        return False
     else:
-        pass
-        paciente_teste["nivel"] = regra["nivel"]  
-        
-        # nivel = 5
-    print(regra["condicoes"]["consciente"],regra["condicoes"]["glasgow"],regra["condicoes"]["spo2"],
-          regra["condicoes"]["frequencia_cardiaca"],regra["condicoes"]["temperatura"],regra["condicoes"]["escala_dor"],
-          regra["condicoes"]["vomitos_por_hora"],regra["condicoes"]["pulso_presente"],regra["condicoes"]["respirando"])
-    paciente_teste["nivel"] = regra["nivel"]
+        operadores ={ 
+            "==": lambda a, b: a == b,
+            ">=": lambda a, b: a >= b,
+            "<= ": lambda a, b: a <= b,
+            ">": lambda a, b: a > b,
+            "<": lambda a, b: a < b,
+            "entre": lambda a, b: b[0] <= a <= b[1]
+        }
 
-for regra in regras_priorizacao["prioridade"]:
-    print(regra)
-    print(paciente_teste[regra])
-    if paciente_teste[regra] == True or paciente_teste[regra] > 59:
-        paciente_teste["Prioridade"] = True
-        break
-    print("Paciente não é prioridade")
-print(paciente_teste["Prioridade"])
-print(paciente_teste["nivel"])
+        return operadores[operador](paciente[atributo], valor)
+
+
+def teste_prioridade(regras, paciente):
+    for regra in regras:
+        condicao = regra["condicao"]
+        atributo, operador, valor = condicao
+        if tete_logico(paciente, condicao):
+                paciente["prioridade"] = True
+                paciente["tipo_prioridade"] = regra["prioridade"]
+
+paciente1 = {"idade": 65}
+paciente2 = {"idade": 30, "gestante": True}
+paciente3 = {"idade": 40,  "deficiencia": True}
+paciente4= {"idade": 25}
+teste_prioridade(regras, paciente1)
+teste_prioridade(regras, paciente2)
+teste_prioridade(regras, paciente3)
+teste_prioridade(regras, paciente4)
+print(paciente1)  # Deve ter prioridade "deficiencia"
+print(paciente2)  # Deve ter prioridade "gestante"
+print(paciente3)  # Deve ter prioridade "deficiencia"
+print(paciente4) 
