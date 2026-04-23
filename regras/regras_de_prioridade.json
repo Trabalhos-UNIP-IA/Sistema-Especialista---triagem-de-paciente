@@ -9,6 +9,6 @@
     },
     {
         "condicao": "idade >= 60",
-        "prioridade": 3
+        "prioridade": 1 
     }
 ]}
