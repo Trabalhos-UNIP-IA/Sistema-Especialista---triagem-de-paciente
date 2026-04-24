@@ -6,6 +6,17 @@
 
 ---
 
+## 👥 Integrantes
+
+| Nome | RA |
+|------|----|
+| Sydhiney Silva | G75EJI5 |
+| Eduardo Theodoro | R153FJ3 |
+| Ariane Veras | R197123 |
+| Victor Donadi | G593IC1 |
+
+---
+
 ## 📌 1. Contexto do Problema
 
 O Sistema Único de Saúde (SUS) atende mais de 200 milhões de brasileiros e enfrenta diariamente o desafio de priorizar pacientes em Unidades de Pronto Atendimento (UPAs), onde os recursos são limitados e o estado clínico pode evoluir rapidamente.
