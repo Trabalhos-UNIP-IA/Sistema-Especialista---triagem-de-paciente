@@ -1,0 +1,17 @@
+{
+  "id": "PAC-10",
+  "sla_tipo": "E4 (vulnerável + febre)",
+  "descricao": "Paciente vulnerável com piora de temperatura",
+  "idade": 70,
+  "deficiencia": true,
+  "leituras": [
+    {
+      "hora": "12:00",
+      "temperatura": 37.0
+    },
+    {
+      "hora": "12:30",
+      "temperatura": 38.8
+    }
+  ]
+}
