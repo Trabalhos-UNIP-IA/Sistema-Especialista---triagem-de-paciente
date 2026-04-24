@@ -1,5 +1,16 @@
 # 🏥 Sistema Especialista de Triagem Inteligente para UPA — SUS Brasil
 
+## 👥 Integrantes
+
+| Nome             | RA      |
+| ---------------- | ------- |
+| Sydhiney Silva   | G75EJI5 |
+| Eduardo Theodoro | R153FJ3 |
+| Ariane Veras     | R197123 |
+| Victor Donadi    | G593IC1 |
+
+---
+
 **Disciplina:** Inteligência Artificial — J903
 **Curso:** Ciência da Computação — 2026
 **Entrega:** Microsoft Teams (com link do repositório Git)
@@ -270,19 +281,12 @@ Testes com diferentes perfis garantiram ausência de viés, pois atributos sens�
 
 ---
 
-## 👨‍💻 14. Autores
-
-* Nome 1
-* Nome 2
-
----
-
-## 📎 15. Repositório
+## 📎 14. Repositório
 
 https://github.com/Trabalhos-UNIP-IA/Sistema-Especialista---triagem-de-paciente
 
 ---
 
-## ❤️ 16. Considerações Finais
+## ❤️ 15. Considerações Finais
 
 O sistema demonstra a aplicação prática de Sistemas Especialistas na saúde pública, promovendo decisões mais justas, transparentes e eficientes no atendimento de pacientes.
