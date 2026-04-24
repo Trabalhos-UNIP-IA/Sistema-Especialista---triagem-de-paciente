@@ -1,14 +1,12 @@
-{"prioridade": [ "idade","gestante", "deficiencia"], "regras": [
-    {
-        "condicao": "gestante == true",
-        "prioridade": 1
+[ {
+        "condicao": ["gestante", "==", true],
+        "prioridade": "idade"
     },
     {
-        "condicao": "deficiencia == true",
-        "prioridade": 1
+        "condicao": ["deficiencia", "==", true],
+        "prioridade": "gestante"
     },
     {
-        "condicao": "idade >= 60",
-        "prioridade": 1 
-    }
-]}
+        "condicao": ["idade", ">=", 60],
+        "prioridade": "deficiencia"
+    }]
