@@ -22,8 +22,8 @@
             ["frequencia_cardiaca", "fora", [40, 150]],
             ["escala_dor", "entre", [8, 10]],        
             ["pulso_presente", "==", true],
-            ["respirando", "==", true]
-   ]   },
+            ["respirando", "==", true]]
+           },
 
     {"id": 3,
      "nivel": "Urgente",
@@ -32,7 +32,7 @@
      "operadores": "e",
       "condicoes":    [
         ["consciente", "==", true],
-            ["frequencia_cardiaca", "entre", [120, 150], "ou", [40, 50]],
+            ["frequencia_cardiaca", "entre", [120, 150]],
             ["temperatura", ">", 39],
             ["escala_dor", "entre", [5, 7]],
             ["vomitos_por_hora", ">", 3],
@@ -45,24 +45,22 @@
      "cor": "verde",
       "tempo_maximo": 60,
        "operadores": "e",
-       "condicoes":    [
+       "condicoes":[
         ["consciente", "==", true],
             ["frequencia_cardiaca", "entre", [50, 120]],
             ["temperatura", "==", 37.2], 
-            ["escala_dor", "entre", [1, 4]],        
-            ["vomitos_por_hora", "==", 3]
-]
+            ["escala_dor", "entre", [1, 4]]
+        ]
     },
 
     {"id": 5,
      "nivel": "Não urgente",
      "cor": "azul",
       "tempo_maximo": 120,
-         "operadores": "e",
-       "condicoes":   [
+        "operadores": "e",
+       "condicoes":[
         ["consciente", "==", true],
         ["frequencia_cardiaca", "entre", [50, 120]],
-        ["escala_dor", "entre", [0, 0]],        
         ["pulso_presente", "==", true],
         ["respirando", "==", true]
        ]

@@ -3,6 +3,7 @@ import os
 from motor_de_decisao import triagem, ordenar_pacientes
 
 PASTA_PACIENTES = "Pacientes"
+cor = { '1':"\033[31m", '2':"\033[38;5;208m", '3':"\033[33m", '4':"\033[32m", '5':"\033[34m", }
 
 pacientes = []
 
@@ -25,10 +26,10 @@ pacientes_ordenados = ordenar_pacientes(pacientes)
 print("\n=== RESULTADOS DA TRIAGEM ===")
 
 for i, p in enumerate(pacientes_ordenados, 1):
-    print(f"\n--- Paciente {i} ---")
+    print(f"{cor[str(p['id_nivel'])]}       \n--- Paciente {i} ---")
     print(f"id: {p['id']}")
     print(f"cor: {p['cor']}")
     print(f"nivel: {p['nivel_prioridade']}")
     print(f"tempo_maximo: {p['tempo_maximo']}")
     print(f"prioridade: {p.get('prioridade', False)}")
-    print(f"tipo_prioridade: {p.get('tipo_prioridade', [])}")
+    print(f"tipo_prioridade: {p.get('tipo_prioridade', [])}\033[0m")

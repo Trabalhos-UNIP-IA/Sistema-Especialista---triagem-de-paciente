@@ -1,7 +1,5 @@
 {"id": "PAC-2026-001",
     "idade": 67,
-    "gestante": false,
-    "deficiencia": false,
     "hora_entrada": "14:00",
     "leituras": [
         {

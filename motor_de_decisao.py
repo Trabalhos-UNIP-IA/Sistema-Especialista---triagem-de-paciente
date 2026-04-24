@@ -1,26 +1,12 @@
 import json
-import os
 from datetime import datetime
-
-BASE_DIR = os.path.dirname(__file__)
-
-# =========================
-# CARREGAMENTO DAS REGRAS
-# =========================
-with open(
-    os.path.join(BASE_DIR, "regras/regras_de_classificação.json"), "r", encoding="utf-8"
-) as f:
+with open(r"regras/regras_de_classificação.json", "r",encoding="utf-8") as f:
     regras = json.load(f)
+with open(r"regras/regras_de_prioridade.json", "r",encoding="utf-8") as f:
+    regras_priorizacao = json.load(f)
+with open(r"Pacientes/paciente01.json", "r",encoding="utf-8") as f:
+    paciente_teste = json.load(f)
 
-with open(
-    os.path.join(BASE_DIR, "regras/regras_de_prioridade.json"), "r", encoding="utf-8"
-) as f:
-    regras_prioridade = json.load(f)
-
-
-# =========================
-# OPERADORES
-# =========================
 operadores = {
     "==": lambda a, b: a == b,
     ">=": lambda a, b: a >= b,
@@ -31,10 +17,9 @@ operadores = {
     "fora": lambda a, b: a < b[0] or a > b[1],
 }
 
+cor = { '1':"\033[31m", '2':"\033[38;5;208m", '3':"\033[33m", '4':"\033[32m", '5':"\033[34m", }
 
-# =========================
-# UTILIDADES
-# =========================
+
 def pegar_leitura_atual(paciente):
     return paciente["leituras"][-1]
 
@@ -44,41 +29,54 @@ def pegar_leitura_anterior(paciente):
         return paciente["leituras"][-2]
     return None
 
+def validador_de_prioridade( paciente):
+    for regra in regras_priorizacao:
+        condicao = regra["condicao"]
+        if teste_logico(paciente, condicao):
+            paciente["prioridade"] = True
+            paciente["tipo_prioridade"] = regra["prioridade"]
+            break
 
-def teste_logico(paciente, condicao):
-    leitura = pegar_leitura_atual(paciente)
 
-    if isinstance(condicao, dict):
-        atributo = condicao["atributo"]
-        operador = condicao["operador"]
-        valor = condicao["valor"]
+def teste_logico(leitura, condicao):
+
+    atributo, operador, valor = condicao
+    if leitura.get(atributo) is None:
+        return False
     else:
-        atributo, operador, valor = condicao[:3]
-
-    if atributo in leitura:
         return operadores[operador](leitura[atributo], valor)
 
-    if atributo in paciente:
-        return operadores[operador](paciente[atributo], valor)
-
-    return False
 
 
-def operador_logico(condicoes, operador, paciente):
+def operador_logico(condicoes, operador,paciente):
+    leitura = pegar_leitura_atual(paciente)
     if operador == "e":
-        return all(teste_logico(paciente, c) for c in condicoes)
+        return all(teste_logico(leitura, condicao) for condicao in condicoes)
     elif operador == "ou":
-        return any(teste_logico(paciente, c) for c in condicoes)
+        return any(teste_logico(leitura, condicao) for condicao in condicoes)
 
 
-# =========================
-# PRIORIDADE (GRUPO VULNERÁVEL)
-# =========================
+def triagem(paciente):
+    for regra in regras:
+        condicoes = regra["condicoes"]
+        operador = regra["operadores"]
+        if operador_logico(condicoes, operador, paciente):
+            paciente['id_nivel'] = regra['id']
+            validador_de_prioridade(paciente)
+            if paciente.get("prioridade") and paciente["id_nivel"] >  1:
+                paciente["id_nivel"] -=1
+                break  
+
+    paciente["nivel_prioridade"] = regras[paciente["id_nivel"]-1]["nivel"]
+    paciente["cor"] = regras[paciente["id_nivel"]-1]["cor"]
+    paciente["tempo_maximo"] = regras[paciente["id_nivel"]-1]["tempo_maximo"]
+    return paciente
+
 def aplicar_prioridade(paciente):
     paciente["prioridade"] = False
     paciente["tipo_prioridade"] = []
 
-    for regra in regras_prioridade:
+    for regra in regras_priorizacao:
         if teste_logico(paciente, regra["condicao"]):
             paciente["prioridade"] = True
             paciente["tipo_prioridade"].append(regra["prioridade"])
@@ -187,34 +185,34 @@ def violou_sla(paciente):
 # =========================
 # MOTOR PRINCIPAL
 # =========================
-def triagem(paciente):
+# def triagem(paciente):
 
-    # E1 — Classificação inicial
-    paciente = classificar(paciente)
+#     # E1 — Classificação inicial
+#     paciente = classificar(paciente)
 
-    # E3 — Prioridade (grupo vulnerável)
-    paciente = aplicar_prioridade(paciente)
+#     # E3 — Prioridade (grupo vulnerável)
+#     paciente = aplicar_prioridade(paciente)
 
-    if paciente["prioridade"]:
-        paciente = subir_nivel(paciente)
+#     if paciente["prioridade"]:
+#         paciente = subir_nivel(paciente)
 
-    # E4 — Piora
-    if detectar_piora(paciente):
-        paciente = subir_nivel(paciente)
+#     # E4 — Piora
+#     if detectar_piora(paciente):
+#         paciente = subir_nivel(paciente)
 
-    # E5 — SLA
-    if violou_sla(paciente):
-        paciente["cor"] = "vermelho"
-        paciente["nivel_prioridade"] = "Emergência"
-        paciente["tempo_maximo"] = 0
+#     # E5 — SLA
+#     if violou_sla(paciente):
+#         paciente["cor"] = "vermelho"
+#         paciente["nivel_prioridade"] = "Emergência"
+#         paciente["tempo_maximo"] = 0
 
-    # E2 — Reavaliação (estrutura)
-    paciente = reavaliacao_continua(paciente)
+#     # E2 — Reavaliação (estrutura)
+#     paciente = reavaliacao_continua(paciente)
 
-    return paciente
+#     return paciente
 
 
-# =========================
+# # =========================
 # ORDENAÇÃO (EMPATE)
 # =========================
 def ordenar_pacientes(lista):
