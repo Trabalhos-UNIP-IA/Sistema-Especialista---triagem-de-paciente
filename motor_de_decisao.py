@@ -1,83 +1,223 @@
 import json
+import os
+from datetime import datetime
 
-with open(r"regras/regras_de_classificação.json", "r", encoding="utf-8") as f:
+BASE_DIR = os.path.dirname(__file__)
+
+# =========================
+# CARREGAMENTO DAS REGRAS
+# =========================
+with open(
+    os.path.join(BASE_DIR, "regras/regras_de_classificação.json"), "r", encoding="utf-8"
+) as f:
     regras = json.load(f)
-with open(r"regras/regras_de_prioridade.json", "r", encoding="utf-8") as f:
-    regras_priorizacao = json.load(f)
+
+with open(
+    os.path.join(BASE_DIR, "regras/regras_de_prioridade.json"), "r", encoding="utf-8"
+) as f:
+    regras_prioridade = json.load(f)
+
+
+# =========================
+# OPERADORES
+# =========================
 operadores = {
     "==": lambda a, b: a == b,
     ">=": lambda a, b: a >= b,
-    "<= ": lambda a, b: a <= b,
+    "<=": lambda a, b: a <= b,
     ">": lambda a, b: a > b,
     "<": lambda a, b: a < b,
     "entre": lambda a, b: b[0] <= a <= b[1],
     "fora": lambda a, b: a < b[0] or a > b[1],
 }
 
-paciente_teste = {
-    "idade": 67,
-    "gestante": False,
-    "deficiencia": False,
-    "hora_entrada": "14:00",
-    "leituras": [
-        {
-            "hora": "14:00",
-            "consciente": True,
-            "glasgow": 15,
-            "spo2": 95,
-            "frequencia_cardiaca": 88,
-            "temperatura": 37.2,
-            "escala_dor": 3,
-            "vomitos_por_hora": 0,
-            "pulso_presente": True,
-            "respirando": True,
-        }
-    ],
-}
+
+# =========================
+# UTILIDADES
+# =========================
+def pegar_leitura_atual(paciente):
+    return paciente["leituras"][-1]
+
+
+def pegar_leitura_anterior(paciente):
+    if len(paciente["leituras"]) >= 2:
+        return paciente["leituras"][-2]
+    return None
 
 
 def teste_logico(paciente, condicao):
-    atributo, operador, valor = condicao
-    if paciente.get(atributo) is None:
-        return False
-    else:
+    leitura = pegar_leitura_atual(paciente)
 
+    if isinstance(condicao, dict):
+        atributo = condicao["atributo"]
+        operador = condicao["operador"]
+        valor = condicao["valor"]
+    else:
+        atributo, operador, valor = condicao[:3]
+
+    if atributo in leitura:
+        return operadores[operador](leitura[atributo], valor)
+
+    if atributo in paciente:
         return operadores[operador](paciente[atributo], valor)
 
-
-def validador_de_prioridade(regras, paciente):
-    for regra in regras:
-        condicao = regra["condicao"]
-        if teste_logico(paciente, condicao):
-            paciente["prioridade"] = True
-            paciente["tipo_prioridade"] = regra["prioridade"]
+    return False
 
 
 def operador_logico(condicoes, operador, paciente):
     if operador == "e":
-        return all(teste_logico(paciente, condicao) for condicao in condicoes)
+        return all(teste_logico(paciente, c) for c in condicoes)
     elif operador == "ou":
-        return any(teste_logico(paciente, condicao) for condicao in condicoes)
+        return any(teste_logico(paciente, c) for c in condicoes)
 
 
-def triagem(regras, paciente):
+# =========================
+# PRIORIDADE (GRUPO VULNERÁVEL)
+# =========================
+def aplicar_prioridade(paciente):
+    paciente["prioridade"] = False
+    paciente["tipo_prioridade"] = []
+
+    for regra in regras_prioridade:
+        if teste_logico(paciente, regra["condicao"]):
+            paciente["prioridade"] = True
+            paciente["tipo_prioridade"].append(regra["prioridade"])
+
+    return paciente
+
+
+def subir_nivel(paciente):
+    mapa = {
+        "azul": ("verde", "Pouco urgente", 60),
+        "verde": ("amarelo", "Urgente", 30),
+        "amarelo": ("laranja", "Muito urgente", 10),
+        "laranja": ("vermelho", "Emergência", 0),
+    }
+
+    cor = paciente["cor"]
+    if cor in mapa:
+        nova_cor, nivel, tempo = mapa[cor]
+        paciente["cor"] = nova_cor
+        paciente["nivel_prioridade"] = nivel
+        paciente["tempo_maximo"] = tempo
+
+    return paciente
+
+
+# =========================
+# E1 — Classificação inicial
+# =========================
+def classificar(paciente):
     for regra in regras:
-        condicoes = regra["condicoes"]
-        operador = regra["operadores"]
-
-        if operador_logico(condicoes, operador, paciente):
-            paciente
+        if operador_logico(regra["condicoes"], regra["operadores"], paciente):
             paciente["nivel_prioridade"] = regra["nivel"]
             paciente["cor"] = regra["cor"]
             paciente["tempo_maximo"] = regra["tempo_maximo"]
-            validador_de_prioridade(regras_priorizacao, paciente)
             return paciente
-    else:
-        paciente["nivel_prioridade"] = "Não urgente"
-        paciente["cor"] = "azul"
-        paciente["tempo_maximo"] = 120
-        return paciente
+
+    paciente["nivel_prioridade"] = "Não urgente"
+    paciente["cor"] = "azul"
+    paciente["tempo_maximo"] = 120
+    return paciente
 
 
-triagem
-print
+# =========================
+# E2 — Reavaliação contínua (placeholder estrutural)
+# =========================
+def reavaliacao_continua(paciente):
+    # Aqui você poderia reprocessar em loop em sistema real
+    return paciente
+
+
+# =========================
+# E3 — Prioridade (já aplicada separadamente)
+# =========================
+
+
+# =========================
+# E4 — Piora do paciente
+# =========================
+def detectar_piora(paciente):
+    anterior = pegar_leitura_anterior(paciente)
+    atual = pegar_leitura_atual(paciente)
+
+    if not anterior:
+        return False
+
+    # usa .get() para evitar erro
+    spo2_atual = atual.get("spo2")
+    spo2_ant = anterior.get("spo2")
+
+    temp_atual = atual.get("temperatura")
+    temp_ant = anterior.get("temperatura")
+
+    glasgow_atual = atual.get("glasgow")
+    glasgow_ant = anterior.get("glasgow")
+
+    # compara só se ambos existirem
+    if spo2_atual is not None and spo2_ant is not None:
+        if spo2_atual < spo2_ant:
+            return True
+
+    if temp_atual is not None and temp_ant is not None:
+        if temp_atual > temp_ant:
+            return True
+
+    if glasgow_atual is not None and glasgow_ant is not None:
+        if glasgow_atual < glasgow_ant:
+            return True
+
+    return False
+
+
+# =========================
+# E5 — Violação de SLA
+# =========================
+def violou_sla(paciente):
+    try:
+        hora_entrada = datetime.strptime(paciente["hora_entrada"], "%H:%M")
+        agora = datetime.now()
+
+        minutos = (agora - hora_entrada).seconds / 60
+        return minutos > paciente["tempo_maximo"]
+    except:
+        return False
+
+
+# =========================
+# MOTOR PRINCIPAL
+# =========================
+def triagem(paciente):
+
+    # E1 — Classificação inicial
+    paciente = classificar(paciente)
+
+    # E3 — Prioridade (grupo vulnerável)
+    paciente = aplicar_prioridade(paciente)
+
+    if paciente["prioridade"]:
+        paciente = subir_nivel(paciente)
+
+    # E4 — Piora
+    if detectar_piora(paciente):
+        paciente = subir_nivel(paciente)
+
+    # E5 — SLA
+    if violou_sla(paciente):
+        paciente["cor"] = "vermelho"
+        paciente["nivel_prioridade"] = "Emergência"
+        paciente["tempo_maximo"] = 0
+
+    # E2 — Reavaliação (estrutura)
+    paciente = reavaliacao_continua(paciente)
+
+    return paciente
+
+
+# =========================
+# ORDENAÇÃO (EMPATE)
+# =========================
+def ordenar_pacientes(lista):
+    return sorted(
+        lista, key=lambda p: (p["tempo_maximo"], not p.get("prioridade", False))
+    )

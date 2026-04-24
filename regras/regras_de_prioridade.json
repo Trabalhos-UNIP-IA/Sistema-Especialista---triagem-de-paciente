@@ -1,12 +1,14 @@
-[ {
-        "condicao": ["gestante", "==", true],
-        "prioridade": "idade"
-    },
+[
     {
-        "condicao": ["deficiencia", "==", true],
+        "condicao": ["gestante", "==", true],
         "prioridade": "gestante"
     },
     {
-        "condicao": ["idade", ">=", 60],
+        "condicao": ["deficiencia", "==", true],
         "prioridade": "deficiencia"
-    }]
+    },
+    {
+        "condicao": ["idade", ">=", 60],
+        "prioridade": "idoso"
+    }
+]
