@@ -13,7 +13,6 @@
 
 **Disciplina:** Inteligência Artificial — J903
 **Curso:** Ciência da Computação — 2026
-**Entrega:** Microsoft Teams (com link do repositório Git)
 
 ---
 
