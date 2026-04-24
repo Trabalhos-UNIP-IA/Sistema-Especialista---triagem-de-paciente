@@ -16,7 +16,7 @@
             "pulso_presente": true,
             "respirando": true,
             "nivel": 1
-        }
+        },
         {"hora": "15:30",
             "consciente": true,
             "glasgow": 15,
