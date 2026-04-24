@@ -1,0 +1,18 @@
+{
+  "id": "PAC-09",
+  "sla_tipo": "E5 (violação dupla de SLA)",
+  "descricao": "Paciente com duas violações de SLA",
+  "idade": 55,
+  "leituras": [
+    {
+      "hora": "11:30",
+      "glasgow": 12,
+      "spo2": 91
+    },
+    {
+      "hora": "12:30",
+      "glasgow": 10,
+      "spo2": 88
+    }
+  ]
+}

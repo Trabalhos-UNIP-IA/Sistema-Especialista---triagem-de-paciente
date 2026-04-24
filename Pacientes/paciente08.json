@@ -1,0 +1,18 @@
+{
+  "id": "PAC-08",
+  "sla_tipo": "Piora grave",
+  "descricao": "Queda crítica nos sinais",
+  "idade": 65,
+  "leituras": [
+    {
+      "hora": "11:10",
+      "glasgow": 14,
+      "spo2": 95
+    },
+    {
+      "hora": "11:40",
+      "glasgow": 9,
+      "spo2": 88
+    }
+  ]
+}

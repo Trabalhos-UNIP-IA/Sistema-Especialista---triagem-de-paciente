@@ -1,0 +1,16 @@
+{
+  "id": "PAC-04",
+  "sla_tipo": "N3 (empate)",
+  "descricao": "Empate com paciente 05",
+  "idade": 28,
+  "leituras": [
+    {
+      "hora": "10:20",
+      "glasgow": 13,
+      "spo2": 93,
+      "frequencia_cardiaca": 100,
+      "temperatura": 38.0,
+      "dor": 6
+    }
+  ]
+}

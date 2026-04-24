@@ -1,0 +1,24 @@
+{
+  "id": "PAC-07",
+  "sla_tipo": "Piora progressiva",
+  "descricao": "Paciente piorando ao longo do tempo",
+  "idade": 50,
+  "leituras": [
+    {
+      "hora": "11:00",
+      "glasgow": 15,
+      "spo2": 96,
+      "frequencia_cardiaca": 80,
+      "temperatura": 37.0,
+      "dor": 2
+    },
+    {
+      "hora": "11:20",
+      "glasgow": 13,
+      "spo2": 93,
+      "frequencia_cardiaca": 95,
+      "temperatura": 38.2,
+      "dor": 5
+    }
+  ]
+}
