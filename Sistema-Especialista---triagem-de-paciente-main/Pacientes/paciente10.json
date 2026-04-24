@@ -1,0 +1,33 @@
+{
+    "id": "PAC-TEST-009-E5",
+    "idade": 55,
+    "gestante": false,
+    "deficiencia": false,
+    "hora_entrada": "11:30",
+    "leituras": [
+      {
+        "hora": "11:30",
+        "consciente": true,
+        "glasgow": 12,
+        "spo2": 91,
+        "frequencia_cardiaca": 110,
+        "temperatura": 38.5,
+        "escala_dor": 7,
+        "vomitos_por_hora": 2,
+        "pulso_presente": true,
+        "respirando": true
+      },
+      {
+        "hora": "12:30",
+        "consciente": true,
+        "glasgow": 11,
+        "spo2": 89,
+        "frequencia_cardiaca": 120,
+        "temperatura": 39.0,
+        "escala_dor": 8,
+        "vomitos_por_hora": 3,
+        "pulso_presente": true,
+        "respirando": true
+      }
+    ]
+  }
