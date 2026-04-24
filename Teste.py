@@ -1,11 +1,14 @@
-# from regras.regras_de_prioridade import  regras 
+# from regras.regras_de_prioridade import  regras
 paciente1 = {"idade": 65}
 paciente2 = {"idade": 30, "gestante": True}
-paciente3 = {"idade": 40,  "deficiencia": True}
-paciente4= {"idade": 25}
+paciente3 = {"idade": 40, "deficiencia": True}
+paciente4 = {"idade": 25}
 import json
-with open(r"regras/regras_de_prioridade.json", "r",encoding="utf-8") as f:
+
+with open(r"regras/regras_de_prioridade.json", "r", encoding="utf-8") as f:
     regras_priorizacao = json.load(f)
+
+
 def teste_prioridade(regras, paciente):
     for regra in regras:
         condicao = regra["condicao"]
@@ -14,7 +17,7 @@ def teste_prioridade(regras, paciente):
             pass
         else:
             if operador == "==":
-                if  paciente[atributo] == valor:
+                if paciente[atributo] == valor:
                     paciente["prioridade"] = True
                     paciente["tipo_prioridade"] = regra["prioridade"]
             elif operador == ">=":
