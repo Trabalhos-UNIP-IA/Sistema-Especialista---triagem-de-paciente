@@ -63,7 +63,7 @@ def operador_logico(condicoes, operador,paciente):
     elif operador == "ou":
         return any(teste_logico(leitura, condicao) for condicao in condicoes)
 
-
+ 
 def triagem(paciente):
     for regra in regras:
         condicoes = regra["condicoes"]
