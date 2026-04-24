@@ -21,7 +21,9 @@ cor = { '1':"\033[31m", '2':"\033[38;5;208m", '3':"\033[33m", '4':"\033[32m", '5
 
 
 def pegar_leitura_atual(paciente):
-    return paciente["leituras"][-1]
+    if len(paciente["leituras"]) > 0:
+        return paciente["leituras"][len(paciente["leituras"]) - 1]
+    return None
 
 
 def pegar_leitura_anterior(paciente):

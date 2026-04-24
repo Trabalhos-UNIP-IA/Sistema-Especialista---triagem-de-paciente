@@ -16,13 +16,10 @@
       "tempo_maximo": 10,
       "operadores": "e",
         "condicoes":    [
-        ["consciente", "==", true],
             ["glasgow", "<", 14],
             ["spo2", "<", 90],
             ["frequencia_cardiaca", "fora", [40, 150]],
-            ["escala_dor", "entre", [8, 10]],        
-            ["pulso_presente", "==", true],
-            ["respirando", "==", true]]
+            ["escala_dor", "entre", [8, 10]] ]
            },
 
     {"id": 3,
@@ -31,13 +28,10 @@
      "tempo_maximo": 30, 
      "operadores": "e",
       "condicoes":    [
-        ["consciente", "==", true],
             ["frequencia_cardiaca", "entre", [120, 150]],
             ["temperatura", ">", 39],
             ["escala_dor", "entre", [5, 7]],
-            ["vomitos_por_hora", ">", 3],
-            ["pulso_presente", "==", true],
-            ["respirando", "==", true]]
+            ["vomitos_por_hora", ">", 3]]
     },
 
     {"id": 4,
@@ -46,9 +40,7 @@
       "tempo_maximo": 60,
        "operadores": "e",
        "condicoes":[
-        ["consciente", "==", true],
             ["frequencia_cardiaca", "entre", [50, 120]],
-            ["temperatura", "==", 37.2], 
             ["escala_dor", "entre", [1, 4]]
         ]
     },
@@ -59,10 +51,8 @@
       "tempo_maximo": 120,
         "operadores": "e",
        "condicoes":[
-        ["consciente", "==", true],
-        ["frequencia_cardiaca", "entre", [50, 120]],
-        ["pulso_presente", "==", true],
-        ["respirando", "==", true]
+        ["frequencia_cardiaca", "entre", [50, 120]]
+     
        ]
     }
 ]

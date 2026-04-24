@@ -3,8 +3,6 @@
   "sla_tipo": "N2 (empate)",
   "descricao": "Empate com paciente 02",
   "idade": 52,
-  "gestante": false,
-  "deficiencia": false,
   "leituras": [
     {
       "hora": "10:15",
