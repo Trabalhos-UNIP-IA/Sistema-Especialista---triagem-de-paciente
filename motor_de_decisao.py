@@ -53,6 +53,12 @@ def teste_logico(leitura, condicao):
 def operador_logico(condicoes, operador,paciente):
     leitura = pegar_leitura_atual(paciente)
     if operador == "e":
+        for condicao in condicoes:  
+            resultado = teste_logico(leitura, condicao)
+            valor = "N/A"
+            if leitura.get(condicao[0]) is not None:
+                valor = leitura[condicao[0]]
+            print(f"Valor: {valor} | Condição: {condicao} -> {'Verdadeiro' if resultado else 'Falso'}")
         return all(teste_logico(leitura, condicao) for condicao in condicoes)
     elif operador == "ou":
         return any(teste_logico(leitura, condicao) for condicao in condicoes)
@@ -62,12 +68,13 @@ def triagem(paciente):
     for regra in regras:
         condicoes = regra["condicoes"]
         operador = regra["operadores"]
+        print(f"\nTestando regra {regra['id']} ")
         if operador_logico(condicoes, operador, paciente):
             paciente['id_nivel'] = regra['id']
             validador_de_prioridade(paciente)
             if paciente.get("prioridade") and paciente["id_nivel"] >  1:
                 paciente["id_nivel"] -=1
-                break  
+            break  
 
     paciente["nivel_prioridade"] = regras[paciente["id_nivel"]-1]["nivel"]
     paciente["cor"] = regras[paciente["id_nivel"]-1]["cor"]

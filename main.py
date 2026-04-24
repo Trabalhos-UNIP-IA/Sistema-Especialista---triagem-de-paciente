@@ -34,9 +34,10 @@ print(f"{cor[str(paciente_teste['id_nivel'])]}       \n--- Paciente {paciente_te
 print(f"id: {paciente_teste['id']}")
 print(f"cor: {paciente_teste['cor']}")
 print(f"nivel: {paciente_teste['nivel_prioridade']}")
-print(f"tempo_maximo: {paciente_teste['tempo_maximo']}")
-print(f"prioridade: {paciente_teste.get('prioridade', False)}")
-print(f"tipo_prioridade: {paciente_teste.get('tipo_prioridade', [])}\033[0m")
+print(f"tempo_maximo: {paciente_teste['tempo_maximo']}\033[0m")
+if paciente_teste.get('prioridade', False):
+    print(f"{cor[str(paciente_teste['id_nivel'])]}prioridade: {paciente_teste['prioridade']}")
+    print(f"tipo_prioridade: {paciente_teste['tipo_prioridade']}\033[0m")
 
 # for i, p in enumerate(paciente, 1):
 #     print(f"{cor[str(p['id_nivel'])]}       \n--- Paciente {i} ---")

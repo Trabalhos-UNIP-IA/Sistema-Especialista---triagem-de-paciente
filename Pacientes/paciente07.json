@@ -10,7 +10,7 @@
       "spo2": 96,
       "frequencia_cardiaca": 80,
       "temperatura": 37.0,
-      "dor": 2
+      "escala_dor": 2
     },
     {
       "hora": "11:20",
@@ -18,7 +18,7 @@
       "spo2": 93,
       "frequencia_cardiaca": 95,
       "temperatura": 38.2,
-      "dor": 5
+      "escala_dor": 5
     }
   ]
 }

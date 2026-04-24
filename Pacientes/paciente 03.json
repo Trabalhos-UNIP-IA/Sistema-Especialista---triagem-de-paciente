@@ -10,7 +10,7 @@
       "spo2": 94,
       "frequencia_cardiaca": 96,
       "temperatura": 37.5,
-      "dor": 5
+      "escala_dor": 5
     }
   ]
 }

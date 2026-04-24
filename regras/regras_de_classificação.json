@@ -19,8 +19,9 @@
             ["glasgow", "<", 14],
             ["spo2", "<", 90],
             ["frequencia_cardiaca", "fora", [40, 150]],
-            ["escala_dor", "entre", [8, 10]] ]
-           },
+            ["escala_dor", ">=", 8]
+        ]
+    },
 
     {"id": 3,
      "nivel": "Urgente",
@@ -30,7 +31,7 @@
       "condicoes":    [
             ["frequencia_cardiaca", "entre", [120, 150]],
             ["temperatura", ">", 39],
-            ["escala_dor", "entre", [5, 7]],
+            ["escala_dor", ">=", 5],
             ["vomitos_por_hora", ">", 3]]
     },
 
@@ -41,7 +42,7 @@
        "operadores": "e",
        "condicoes":[
             ["frequencia_cardiaca", "entre", [50, 120]],
-            ["escala_dor", "entre", [1, 4]]
+            ["escala_dor", ">=", 1]
         ]
     },
 
