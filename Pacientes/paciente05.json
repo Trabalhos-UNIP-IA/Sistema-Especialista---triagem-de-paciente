@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "id": "PAC-05",
   "sla_tipo": "N3 (empate)",
   "descricao": "Empate com paciente 04",
@@ -14,3 +15,38 @@
     }
   ]
 }
+=======
+    "id": "PAC-2026-013",
+    "idade": 33,
+    "gestante": false,
+    "deficiencia": false,
+    "hora_entrada": "12:00",
+    "empate": true,
+    "leituras": [
+      {
+        "hora": "12:00",
+        "consciente": true,
+        "glasgow": 15,
+        "spo2": 96,
+        "frequencia_cardiaca": 88,
+        "temperatura": 37.0,
+        "escala_dor": 3,
+        "vomitos_por_hora": 0,
+        "pulso_presente": true,
+        "respirando": true
+      },
+      {
+        "hora": "12:30",
+        "consciente": true,
+        "glasgow": 15,
+        "spo2": 96,
+        "frequencia_cardiaca": 88,
+        "temperatura": 37.0,
+        "escala_dor": 3,
+        "vomitos_por_hora": 0,
+        "pulso_presente": true,
+        "respirando": true
+      }
+    ]
+  }
+>>>>>>> 922beb2 (Atualizando os pacientes)

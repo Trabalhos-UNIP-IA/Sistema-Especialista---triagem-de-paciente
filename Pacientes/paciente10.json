@@ -1,17 +1,38 @@
 {
-  "id": "PAC-10",
-  "sla_tipo": "E4 (vulnerável + febre)",
-  "descricao": "Paciente vulnerável com piora de temperatura",
-  "idade": 70,
-  "deficiencia": true,
+  "id": "PAC-2026-018",
+  "idade": 52,
+  "gestante": false,
+  "deficiencia": false,
+  "hora_entrada": "17:00",
   "leituras": [
     {
-      "hora": "12:00",
-      "temperatura": 37.0
+      "hora": "17:00",
+      "consciente": true,
+      "glasgow": 15,
+      "spo2": 95,
+      "frequencia_cardiaca": 92,
+      "temperatura": 37.3,
+      "escala_dor": 4,
+      "vomitos_por_hora": 1,
+      "pulso_presente": true,
+      "respirando": true
     },
     {
+<<<<<<< HEAD
       "hora": "12:30",
       "temperatura": 39.5
+=======
+      "hora": "17:30",
+      "consciente": true,
+      "glasgow": 15,
+      "spo2": 95,
+      "frequencia_cardiaca": 92,
+      "temperatura": 37.3,
+      "escala_dor": 4,
+      "vomitos_por_hora": 1,
+      "pulso_presente": true,
+      "respirando": true
+>>>>>>> 922beb2 (Atualizando os pacientes)
     }
   ]
 }
