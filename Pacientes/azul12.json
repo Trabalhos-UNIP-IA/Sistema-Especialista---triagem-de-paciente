@@ -1,0 +1,30 @@
+{
+  "id": "PAC-BLUE-08",
+  "sla_tipo": "Não urgente",
+  "descricao": "Paciente estável, sem sinais de gravidade",
+  "idade": 30,
+  "leituras": [
+    {
+      "hora": "14:00",
+      "consciente": true,
+      "pulso_presente": true,
+      "respirando": true,
+      "glasgow": 15,
+      "spo2": 98,
+      "frequencia_cardiaca": 65,
+      "temperatura": 36.7,
+      "escala_dor": 0
+    },
+    {
+      "hora": "14:20",
+      "consciente": true,
+      "pulso_presente": true,
+      "respirando": true,
+      "glasgow": 15,
+      "spo2": 98,
+      "frequencia_cardiaca": 70,
+      "temperatura": 36.8,
+      "escala_dor": 0
+    }
+  ]
+}

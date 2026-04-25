@@ -3,48 +3,82 @@ import os
 from motor_de_decisao import triagem, ordenar_pacientes
 
 PASTA_PACIENTES = "Pacientes"
-cor = { '1':"\033[31m", '2':"\033[38;5;208m", '3':"\033[33m", '4':"\033[32m", '5':"\033[38;2;100;180;255m", }
+
+cor = {
+    "1": "\033[31m",  # vermelho
+    "2": "\033[38;5;208m",  # laranja
+    "3": "\033[33m",  # amarelo
+    "4": "\033[32m",  # verde
+    "5": "\033[38;2;100;180;255m",  # azul
+}
 
 pacientes = []
 
-# 1. Ler todos os arquivos JSON da pasta
-# for arquivo in os.listdir(PASTA_PACIENTES):
-#     if arquivo.endswith(".json"):
-#         caminho = os.path.join(PASTA_PACIENTES, arquivo)
-#         print(f"\nLendo arquivo: {arquivo}")
-#         with open(caminho, "r", encoding="utf-8") as f:
-#             paciente = json.load(f)
+# =========================
+# 1. Ler e processar pacientes
+# =========================
+for arquivo in os.listdir(PASTA_PACIENTES):
+    if arquivo.endswith(".json"):
+        caminho = os.path.join(PASTA_PACIENTES, arquivo)
 
-#             # 2. Aplicar triagem
-#             resultado = triagem(paciente)
-#             pacientes.append(resultado)
+        with open(caminho, "r", encoding="utf-8") as f:
+            paciente = json.load(f)
 
-# # 3. Ordenar pacientes (empate)
-# pacientes_ordenados = ordenar_pacientes(pacientes)
+            resultado = triagem(paciente)
 
-# 4. Exibir resultados
-print("\n=== RESULTADOS DA TRIAGEM ===")
+            # adiciona nome do arquivo (útil para log)
+            resultado["arquivo_origem"] = arquivo
 
-pacientes_ordenados = sorted(pacientes, key=lambda x: (x['id_nivel'], x['tempo_maximo']))
-with open(r"Pacientes/paciente10.json", "r",encoding="utf-8") as f:
-    paciente_teste = json.load(f)
+            pacientes.append(resultado)
 
-paciente_teste = triagem(paciente_teste)
-print(f"{cor[str(paciente_teste['id_nivel'])]}       \n--- Paciente {paciente_teste['id']} ---")
-print(f"id: {paciente_teste['id']}")
-print(f"cor: {paciente_teste['cor']}")
-print(f"nivel: {paciente_teste['nivel_prioridade']}")
-print(f"tempo_maximo: {paciente_teste['tempo_maximo']}\033[0m")
-if paciente_teste.get('prioridade', False):
-    print(f"{cor[str(paciente_teste['id_nivel'])]}prioridade: {paciente_teste['prioridade']}")
-    print(f"tipo_prioridade: {paciente_teste['tipo_prioridade']}\033[0m")
+# =========================
+# 2. Ordenação (com desempate)
+# =========================
+pacientes_ordenados = ordenar_pacientes(pacientes)
 
-# for i, p in enumerate(paciente, 1):
-#     print(f"{cor[str(p['id_nivel'])]}       \n--- Paciente {p['id']} ---")
-#     print(f"id: {p['id']}")
-#     print(f"cor: {p['cor']}")
-#     print(f"nivel: {p['nivel_prioridade']}")
-#     print(f"tempo_maximo: {p['tempo_maximo']}\033[0m")
-#     if p.get('prioridade', False):
-#         print(f"{cor[str(p['id_nivel'])]}prioridade: {p['prioridade']}")
-#         print(f"tipo_prioridade: {p['tipo_prioridade']}\033[0m")
+# =========================
+# 3. Exibir resultados
+# =========================
+print("\n=== RESULTADOS DA TRIAGEM ===\n")
+
+for i, p in enumerate(pacientes_ordenados, 1):
+    cor_terminal = cor.get(str(p["id_nivel"]), "\033[0m")
+
+    print(f"{cor_terminal}--- {i}º na fila ---")
+    print(f"Paciente: {p['id']}")
+    print(f"Arquivo: {p['arquivo_origem']}")
+    print(f"Cor: {p['cor']}")
+    print(f"Nível: {p['nivel_prioridade']}")
+    print(f"Tempo máximo: {p['tempo_maximo']} min")
+
+    if p.get("prioridade", False):
+        print(f"Prioridade: {p['tipo_prioridade']}")
+
+    # =========================
+    # Mostrar critério de desempate
+    # =========================
+    if p.get("criterio_desempate"):
+        print(f"Desempate aplicado: {p['criterio_desempate']}")
+
+    print("\033[0m")
+
+
+# =========================
+# 4. LOG AUDITÁVEL
+# =========================
+print("\n=== LOG DE INFERÊNCIA ===\n")
+
+for p in pacientes_ordenados:
+    if "log" in p:
+        print(f"\nPaciente {p['id']}:")
+
+        for log in p["log"]:
+            print(f"- Hora: {log['hora']}")
+            print(f"  Regra: {log['regra']}")
+            print(f"  Conclusão: {log['conclusao']}")
+            print(f"  Fatos: {log['fatos']}")
+
+            if log.get("criterio"):
+                print(f"  Desempate: {log['criterio']}")
+
+            print()

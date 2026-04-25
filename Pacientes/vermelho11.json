@@ -1,0 +1,30 @@
+{
+  "id": "PAC-RED-07",
+  "sla_tipo": "Emergência",
+  "descricao": "Paciente inconsciente com piora progressiva",
+  "idade": 50,
+  "leituras": [
+    {
+      "hora": "11:00",
+      "consciente": false,
+      "pulso_presente": true,
+      "respirando": true,
+      "glasgow": 12,
+      "spo2": 94,
+      "frequencia_cardiaca": 95,
+      "temperatura": 37.5,
+      "escala_dor": 4
+    },
+    {
+      "hora": "11:20",
+      "consciente": false,
+      "pulso_presente": true,
+      "respirando": true,
+      "glasgow": 6,
+      "spo2": 88,
+      "frequencia_cardiaca": 120,
+      "temperatura": 38.5,
+      "escala_dor": 0
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "id": "PAC-ORANGE-10",
+  "sla_tipo": "Muito urgente",
+  "descricao": "Paciente com múltiplos sinais de gravidade",
+  "idade": 55,
+  "leituras": [
+    {
+      "hora": "16:00",
+      "glasgow": 13,
+      "spo2": 88,
+      "frequencia_cardiaca": 160,
+      "escala_dor": 9
+    },
+    {
+      "hora": "16:15",
+      "glasgow": 12,
+      "spo2": 85,
+      "frequencia_cardiaca": 155,
+      "escala_dor": 9
+    }
+  ]
+}

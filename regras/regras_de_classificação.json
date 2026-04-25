@@ -50,10 +50,10 @@
      "nivel": "Não urgente",
      "cor": "azul",
       "tempo_maximo": 120,
-        "operadores": "e",
+       "operadores": "e",
        "condicoes":[
-        ["frequencia_cardiaca", "entre", [50, 120]]
-     
-       ]
+            ["frequencia_cardiaca", "entre", [50, 100]],
+             ["escala_dor", "==", 0]
+        ]
     }
 ]
