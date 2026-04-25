@@ -256,13 +256,9 @@ Campos ausentes são tratados sem gerar exceções.
 
 ## 🧾 13. Reflexão (≤ 500 palavras)
 
-O critério de desempate prioriza risco clínico e deterioração, garantindo respostas rápidas em cenários críticos.
+O critério de desempate proposto neste sistema prioriza, em primeiro lugar, o risco clínico imediato e a presença de deterioração recente nos sinais vitais, buscando garantir que pacientes com maior probabilidade de agravamento sejam atendidos com maior rapidez. Esse comportamento é consistente com o objetivo central de sistemas de triagem, que é minimizar riscos à vida e reduzir a progressão de quadros clínicos graves.
 
-Em situações de alta demanda (ex: 40 pacientes nível 3), o sistema tende a favorecer pacientes com piora ativa, podendo aumentar o tempo de espera de pacientes estáveis. No entanto, o uso de SLAs impede negligência prolongada.
-
-Uma limitação observada é o possível atraso de pacientes estáveis em cenários extremos. Como mitigação, o sistema considera tempo no nível e proximidade de SLA.
-
-Testes com diferentes perfis garantiram ausência de viés, pois atributos sensíveis não são utilizados.
+Em cenários de alta demanda, como uma UPA com grande volume de pacientes classificados no mesmo nível de prioridade (por exemplo, 40 pacientes no nível 3), o sistema tende a favorecer aqueles que apresentam piora ativa ou múltiplos sinais vitais alterados. Essa estratégia, embora eficaz para reduzir riscos clínicos imediatos, pode resultar no aumento do tempo de espera para pacientes estáveis, ainda que classificados no mesmo nível.
 
 ---
 
