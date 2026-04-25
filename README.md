@@ -109,7 +109,6 @@ As regras abaixo são ativadas com base em conclusões anteriores:
 * **E3:** Violação de SLA → alerta + escalonamento
 * **E4:** Vulnerável + aumento de temperatura → nível 2
 * **E5:** Dupla violação de SLA → protocolo de sobrecarga
-
 ---
 
 ## 🧩 5. Representação das Regras (DOCUMENTAÇÃO)
@@ -126,7 +125,6 @@ As regras são representadas como **dados estruturados (dicionários Python)**.
     "acao": {...}
 }
 ```
-
 ### Exemplo:
 
 ```python
@@ -142,7 +140,6 @@ As regras são representadas como **dados estruturados (dicionários Python)**.
     }
 }
 ```
-
 ---
 
 ### Justificativa da Estrutura
@@ -221,7 +218,6 @@ Exemplo:
 ```
 [14:25] Regra E2 aplicada: piora simultânea → nível elevado para 2
 ```
-
 ---
 
 ## 🧪 9. Testes
@@ -255,16 +251,6 @@ Campos ausentes são tratados sem gerar exceções.
 * Motor separado da base ✔
 * Sem rebaixamento automático ✔
 * Tratamento de dados ausentes ✔
-
----
-
-## 🚀 12. Execução
-
-```bash
-git clone https://github.com/Trabalhos-UNIP-IA/Sistema-Especialista---triagem-de-paciente.git
-cd Sistema-Especialista---triagem-de-paciente
-python main.py
-```
 
 ---
 
