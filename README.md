@@ -260,6 +260,14 @@ O critério de desempate proposto neste sistema prioriza, em primeiro lugar, o r
 
 Em cenários de alta demanda, como uma UPA com grande volume de pacientes classificados no mesmo nível de prioridade (por exemplo, 40 pacientes no nível 3), o sistema tende a favorecer aqueles que apresentam piora ativa ou múltiplos sinais vitais alterados. Essa estratégia, embora eficaz para reduzir riscos clínicos imediatos, pode resultar no aumento do tempo de espera para pacientes estáveis, ainda que classificados no mesmo nível.
 
+Para mitigar esse efeito, o critério incorpora fatores adicionais, como o tempo de permanência no nível atual e a proximidade da violação do SLA (Service Level Agreement). Dessa forma, pacientes que aguardam por períodos prolongados não são negligenciados indefinidamente, garantindo o requisito de ausência de inação. Além disso, a utilização de regras determinísticas assegura que, para um mesmo conjunto de entradas, a decisão tomada será sempre a mesma, promovendo consistência e auditabilidade.
+
+Outro ponto relevante é a equidade do sistema. O critério de desempate não utiliza atributos sensíveis, como gênero, raça ou condição socioeconômica, baseando-se exclusivamente em dados clínicos e operacionais. Testes realizados com diferentes perfis demográficos indicaram ausência de viés sistemático nas decisões, reforçando a imparcialidade do modelo.
+
+Entretanto, o sistema apresenta limitações em cenários extremos, especialmente quando há múltiplos pacientes com deterioração simultânea. Nesses casos, mesmo com critérios adicionais, pode haver disputas difíceis de resolver de forma totalmente justa, evidenciando a necessidade de intervenção humana em situações críticas.
+
+Por fim, quando todos os critérios avaliados são equivalentes entre pacientes, o sistema adota a ordem de chegada como fator de desempate final, garantindo simplicidade, transparência e previsibilidade na decisão.
+
 ---
 
 ## 📎 14. Repositório
