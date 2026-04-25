@@ -1,28 +1,34 @@
 {
-<<<<<<< HEAD
-  "id": "PAC-06",
-  "sla_tipo": "N4 (empate)",
-  "descricao": "Empate com paciente 07",
-  "idade": 40,
-  "leituras": [
-    {
-      "hora": "10:30",
-      "glasgow": 12,
-      "spo2": 92,
-      "frequencia_cardiaca": 105,
-      "temperatura": 38.5,
-      "escala_dor": 7
-    }
-  ]
-}
-=======
-"id": "PAC-2026-008",
-"idade": 50,
-"gestante": false,
-"deficiencia": false,
-"hora_entrada": "15:00",
-"leituras": [
-{"hora": "15:00","consciente": true,"glasgow": 15,"spo2": 96,"frequencia_cardiaca": 85,"temperatura": 37.0,"escala_dor": 2,"vomitos_por_hora": 0,"pulso_presente": true,"respirando": true},
-{"hora": "15:30","consciente": true,"glasgow": 12,"spo2": 85,"frequencia_cardiaca": 140,"temperatura": 39.5,"escala_dor": 8,"vomitos_por_hora": 5,"pulso_presente": true,"respirando": true}
-]}
->>>>>>> 922beb2 (Atualizando os pacientes)
+    "id": "PAC-2026-014",
+    "idade": 55,
+    "gestante": false,
+    "deficiencia": false,
+    "hora_entrada": "13:00",
+    "regra_E5": true,
+    "leituras": [
+      {
+        "hora": "13:00",
+        "consciente": true,
+        "glasgow": 14,
+        "spo2": 92,
+        "frequencia_cardiaca": 105,
+        "temperatura": 38.0,
+        "escala_dor": 6,
+        "vomitos_por_hora": 2,
+        "pulso_presente": true,
+        "respirando": true
+      },
+      {
+        "hora": "15:30",
+        "consciente": true,
+        "glasgow": 13,
+        "spo2": 89,
+        "frequencia_cardiaca": 115,
+        "temperatura": 38.7,
+        "escala_dor": 8,
+        "vomitos_por_hora": 3,
+        "pulso_presente": true,
+        "respirando": true
+      }
+    ]
+  }

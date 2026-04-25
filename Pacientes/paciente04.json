@@ -1,21 +1,4 @@
 {
-<<<<<<< HEAD
-  "id": "PAC-04",
-  "sla_tipo": "N3 (empate)",
-  "descricao": "Empate com paciente 05",
-  "idade": 28,
-  "leituras": [
-    {
-      "hora": "10:20",
-      "glasgow": 13,
-      "spo2": 93,
-      "frequencia_cardiaca": 100,
-      "temperatura": 38.0,
-      "escala_dor": 6
-    }
-  ]
-}
-=======
     "id": "PAC-2026-012",
     "idade": 70,
     "gestante": false,
@@ -49,4 +32,3 @@
       }
     ]
   }
->>>>>>> 922beb2 (Atualizando os pacientes)
